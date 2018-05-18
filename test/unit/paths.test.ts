@@ -8,7 +8,7 @@ import paths from '../../src/paths';
 describe('paths.test.js', () => {
     it('solc-installs', () => {
         assert.ok(paths.solidityInstalls);
-        assert.ok(paths.solidityInstalls.endsWith('solcjs-cli/solc-installs'));
+        assert.ok(paths.solidityInstalls.includes('solcjs-cli/solc-installs'));
     });
     it('compile-cache', () => {
         assert.ok(paths.compileCache);

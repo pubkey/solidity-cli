@@ -16,7 +16,7 @@
     "scripts": {
         "lint": "tslint --project .",
         "transpile": "rm -rf tmp && tsc -p ./ && echo '# transpile sucess!'",
-        "pretest": "npm run transpile",
+        "pretest": "npm run transpile && rimraf -rf ./solc-installs",
         "test": "npm run pretest && mocha --bail --exit ./tmp/test/index.test.js && npm run clear",
         "clear": "rimraf -rf ./tmp",
         "build": "npm run transpile",
@@ -34,8 +34,10 @@
     "homepage": "https://github.com/pubkey/solcjs-cli#readme",
     "dependencies": {
         "commander": "^2.15.1",
+        "directory-exists": "^2.0.0",
         "glob": "^7.1.2",
         "js-sha3": "0.7.0",
+        "npmi": "^4.0.0",
         "solc": "*"
     },
     "devDependencies": {
