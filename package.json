@@ -1,0 +1,60 @@
+{
+    "name": "solcjs-cli",
+    "version": "0.0.1",
+    "description": "Comple solidity-code faster, easier and more reliable",
+    "keywords": [
+        "solidity",
+        "ethereum",
+        "eth",
+        "web3",
+        "dapp",
+        "blockchain",
+        "smart-contract"
+    ],
+    "main": "./dist/lib/index.js",
+    "types": "./src/index.d.ts",
+    "scripts": {
+        "lint": "tslint --project .",
+        "transpile": "rm -rf tmp && tsc -p ./ && echo '# transpile sucess!'",
+        "pretest": "npm run transpile",
+        "test": "npm run pretest && mocha --bail --exit ./tmp/test/index.test.js && npm run clear",
+        "clear": "rimraf -rf ./tmp",
+        "build": "npm run transpile",
+        "dev": "watch 'npm run test:node' src/ test/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/pubkey/solcjs-cli.git"
+    },
+    "author": "pubkey",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/pubkey/solcjs-cli/issues"
+    },
+    "homepage": "https://github.com/pubkey/solcjs-cli#readme",
+    "dependencies": {
+        "commander": "^2.15.1",
+        "glob": "^7.1.2",
+        "js-sha3": "0.7.0",
+        "solc": "*"
+    },
+    "devDependencies": {
+        "@types/node": "10.1.1",
+        "@types/mocha": "5.2.0",
+        "assert": "1.4.1",
+        "async-test-util": "1.5.1",
+        "command-line-args": "^5.0.2",
+        "concurrently": "3.5.1",
+        "delete": "1.1.0",
+        "exists-file": "3.0.2",
+        "mocha": "5.1.1",
+        "node": "10.0.0",
+        "pre-commit": "1.2.2",
+        "rimraf": "2.6.2",
+        "shelljs": "0.8.2",
+        "solhint": "1.1.10",
+        "tslint": "5.10.0",
+        "typescript": "2.8.3",
+        "walk-sync": "0.3.2"
+    }
+}

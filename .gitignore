@@ -1,0 +1,13 @@
+node_modules/
+test_tmp/
+package-lock.json
+.idea/
+.transpile_state.json
+.com.google.*
+shelljs_*
+
+# TODO remove this before first build
+dist/
+tmp/
+solc-installs/
+compile-cache/
