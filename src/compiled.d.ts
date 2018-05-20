@@ -35,3 +35,7 @@ export type SolcCompiledContract = {
     srcmap: string;
     srcmapRuntime: string;
 };
+
+export type SolcCompiledFile = {
+    [contractName: string]: SolcCompiledContract
+};

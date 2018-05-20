@@ -13,12 +13,10 @@ import {
 } from 'child-process-promise';
 
 import {
-    SolcCompiledContract
+    SolcCompiledFile
 } from './compiled.d';
 
-export default async function compile(source: SourceCode): Promise<{
-    [contractName: string]: SolcCompiledContract
-}> {
+export default async function compile(source: SourceCode): Promise<SolcCompiledFile> {
 
     const base64Code = Buffer.from(source.code).toString('base64');
     const nodeScriptLocation = path.join(__dirname, 'compile.node.js');
@@ -37,8 +35,6 @@ export default async function compile(source: SourceCode): Promise<{
     try {
         await promise;
     } catch (err) {
-        console.log('errrrr');
-        console.dir(stdout);
         throw new Error(`could not compile
                    # Error: ${err}
                    # Output: ${stdout}
@@ -49,7 +45,11 @@ export default async function compile(source: SourceCode): Promise<{
     const result = JSON.parse(stdout[0]);
 
     if (!result.success) {
-        throw new Error('could not compile ' + JSON.stringify(result));
+        throw new Error(
+            'could not compile contract ' + source.filename + '\n' +
+            'errors: \n' +
+            result.error.join('\n')
+        );
     } else {
         return result.result;
     }

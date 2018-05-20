@@ -26,7 +26,8 @@ describe('solc-install.test.js', () => {
         });
     });
     describe('.solcInstall()', () => {
-        it('should install all versions', async () => {
+        it('should install all versions', async function() {
+            this.timeout(1000 * 60);
             await solcInstall([
                 '0.4.22',
                 '0.4.23',

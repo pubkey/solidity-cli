@@ -1,5 +1,7 @@
 /**
  * ensures the required solc-versions are installed
+ * I tried to use 'npmi' but it always shows output in the console
+ * So we use a custom shelljs
  */
 import * as util from 'util';
 import * as path from 'path';
@@ -7,6 +9,9 @@ import * as fs from 'fs';
 import * as directoryExists from 'directory-exists';
 import * as npmi from 'npmi';
 import * as rimraf from 'rimraf';
+import {
+    exec
+} from 'shelljs';
 
 import paths from './paths';
 
@@ -26,15 +31,13 @@ export async function installVersion(version: string): Promise<boolean> {
 
     // not exists -> install it
     try {
-        console.log('# installing solc@' + version);
-        await npmInstall({
-            name: 'solc',
-            version,
-            path: installPath,
-            forceInstall: false,
-            npmLoad: {				// npm.load(options, callback): this is the "options" given to npm.load()
-                loglevel: 'silent'	// [default: {loglevel: 'silent'}]
-            }
+        // console.log('# installing solc@' + version);
+        await new Promise((res, rej) => {
+            const shell = 'npm install solc@' + version + ' --prefix ' + installPath + ' --depth 0 --silent';
+            exec(shell, function(code, stdout, stderr) {
+                if (code === 0) res();
+                else rej(new Error(stderr));
+            });
         });
     } catch (err) {
         // remove folder
