@@ -26,6 +26,7 @@ export async function installVersion(version: string): Promise<boolean> {
 
     // not exists -> install it
     try {
+        console.log('# installing solc@' + version);
         await npmInstall({
             name: 'solc',
             version,

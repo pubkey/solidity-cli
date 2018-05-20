@@ -17,7 +17,7 @@ import {
     Options
 } from './options';
 
-declare type SourceCode = {
+export type SourceCode = {
     filename: string,
     code: string,
     codeHash: string,

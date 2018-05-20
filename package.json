@@ -1,5 +1,5 @@
 {
-    "name": "solcjs-cli",
+    "name": "solidity-cli",
     "version": "0.0.1",
     "description": "Comple solidity-code faster, easier and more reliable",
     "keywords": [
@@ -20,7 +20,8 @@
         "test": "npm run pretest && mocha --bail --exit ./tmp/test/index.test.js && npm run clear",
         "clear": "rimraf -rf ./tmp",
         "build": "npm run transpile",
-        "dev": "watch 'npm run test:node' src/ test/"
+        "dev": "watch 'npm run test:node' src/ test/",
+        "tcompile": "npm run transpile && node ./tmp/src/compile.node.js cHJhZ21hIHNvbGlkaXR5IDAuNC4yNDsNCg0KDQpjb250cmFjdCBCYXNpYyB7DQogICAgYWRkcmVzcyBwdWJsaWMgb3duZXI7DQp9DQo="
     },
     "repository": {
         "type": "git",
@@ -33,12 +34,13 @@
     },
     "homepage": "https://github.com/pubkey/solcjs-cli#readme",
     "dependencies": {
+        "child-process-promise": "^2.2.1",
         "commander": "^2.15.1",
         "directory-exists": "^2.0.0",
         "glob": "^7.1.2",
         "js-sha3": "0.7.0",
         "npmi": "^4.0.0",
-        "solc": "*"
+        "webworker-threads": "^0.7.13"
     },
     "devDependencies": {
         "@types/node": "10.1.1",

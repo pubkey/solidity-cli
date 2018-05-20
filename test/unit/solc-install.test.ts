@@ -28,6 +28,7 @@ describe('solc-install.test.js', () => {
     describe('.solcInstall()', () => {
         it('should install all versions', async () => {
             await solcInstall([
+                '0.4.22',
                 '0.4.23',
                 '0.4.23',
                 '0.4.24'
