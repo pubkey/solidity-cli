@@ -1,4 +1,4 @@
-# solcjs-cli
+# solidity-cli
 Comple solidity-code faster, easier and more reliable
 
 

@@ -12,6 +12,6 @@ describe('paths.test.js', () => {
     });
     it('compile-cache', () => {
         assert.ok(paths.compileCache);
-        assert.ok(paths.compileCache.endsWith('solcjs-cli/compile-cache'));
+        assert.ok(paths.compileCache.includes('solcjs-cli/compile-cache'));
     });
 });
