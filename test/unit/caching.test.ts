@@ -36,6 +36,12 @@ describe('caching.test.js', () => {
         });
     });
     describe('.has()', () => {
+        it('should not have this in cache', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.codeHash = 'foobar';
+            const has = await caching.has(source);
+            assert.equal(has, false);
+        });
         it('should have cached the output', async () => {
             const { source, compiled } = await basicCompiled();
             const javascript = await createJavascriptFile(source, compiled);

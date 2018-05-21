@@ -5,6 +5,7 @@
 import compile from '../../src/compile';
 import readCodeFiles from '../../src/read-code';
 import paths from '../../src/paths';
+import * as clone from 'clone';
 
 import {
     SolcCompiledFile
@@ -30,5 +31,7 @@ export async function basicCompiled(): Promise<{
             });
         });
     }
-    return basicCompiledPromise;
+
+    const value = await basicCompiledPromise;
+    return clone(value);
 }

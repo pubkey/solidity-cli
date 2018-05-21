@@ -38,8 +38,12 @@ function fileBySource(source: SourceCode): string {
 }
 
 export async function has(source: SourceCode): Promise<boolean> {
-    const exists = await fileExists(fileBySource(source));
-    return !!exists;
+    try {
+        const exists = await fileExists(fileBySource(source));
+        return true;
+    } catch (err) {
+        return false;
+    }
 }
 
 export async function get(source: SourceCode): Promise<{
