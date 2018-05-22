@@ -1,0 +1,6 @@
+solc-installs/
+compile-cache/
+node_modules/
+log.txt
+test/
+dist/test/

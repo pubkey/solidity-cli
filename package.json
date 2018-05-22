@@ -11,14 +11,17 @@
         "blockchain",
         "smart-contract"
     ],
-    "main": "./dist/lib/index.js",
+    "bin": {
+        "solidity": "./dist/src/cli.js"
+    },
+    "main": "./dist/src/index.js",
     "types": "./src/index.d.ts",
     "scripts": {
         "lint": "tslint --project .",
-        "transpile": "rm -rf tmp && tsc -p ./ && echo '# transpile sucess!'",
+        "pretranspile": "rimraf -rf ./dist && mkdir ./dist",
+        "transpile": "tsc -p ./ && echo '# transpile sucess!'",
         "pretest": "npm run transpile && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache",
-        "test": "npm run pretest && mocha --bail --exit ./tmp/test/index.test.js  ./tmp/test/integration.test.js && npm run clear",
-        "clear": "rimraf -rf ./tmp",
+        "test": "mocha --bail --exit ./dist/test/index.test.js  ./dist/test/integration.test.js",
         "build": "npm run transpile",
         "dev": "watch 'npm run test:node' src/ test/",
         "tcompile": "npm run transpile && node ./tmp/src/compile.node.js cHJhZ21hIHNvbGlkaXR5IDAuNC4yNDsNCg0KDQpjb250cmFjdCBCYXNpYyB7DQogICAgYWRkcmVzcyBwdWJsaWMgb3duZXI7DQp9DQo="
@@ -38,11 +41,11 @@
     "homepage": "https://github.com/pubkey/solcjs-cli#readme",
     "dependencies": {
         "child-process-promise": "2.2.1",
-        "commander": "2.15.1",
         "directory-exists": "2.0.0",
         "glob": "7.1.2",
         "js-sha3": "0.7.0",
-        "solc": "0.4.24"
+        "solc": "0.4.24",
+        "yargs": "^11.0.0"
     },
     "devDependencies": {
         "@types/node": "10.1.1",

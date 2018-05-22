@@ -11,7 +11,7 @@
         "suppressImplicitAnyIndexErrors": true,
         "moduleResolution": "node",
         "target": "es5",
-        "outDir": "./tmp",
+        "outDir": "./dist",
         "lib": [
             "ES2017",
             "dom"
