@@ -15,6 +15,9 @@ import {
 import {
     SourceCode
 } from '../read-code';
+import {
+    Options
+} from '../options';
 
 import paths from '../paths';
 
@@ -63,4 +66,38 @@ export default compiled;
 `;
 
     return template;
+}
+
+/**
+ * determines where the output should be written
+ */
+export function outputPath(options: Options, source: SourceCode): string {
+    const DEBUG = false;
+    if (DEBUG) console.log('sourceFolder: ' + options.sourceFolder);
+
+    let globBase = options.sourceFolder.replace(/\*.*/, '');
+    if (globBase.endsWith('.sol')) // single file
+        globBase = path.join(globBase, '../');
+
+    if (DEBUG) console.log('globBase: ' + globBase);
+
+    const optDestination = options.destinationFolder ? options.destinationFolder : globBase;
+    if (DEBUG) console.log('optDestination: ' + optDestination);
+    let destinationFolder = path.join(globBase, optDestination);
+    if (optDestination === globBase) destinationFolder = globBase;
+    if (DEBUG) console.log('destinationFolder: ' + destinationFolder);
+
+    // destination-folder is absolut
+    if (options.destinationFolder && options.destinationFolder.startsWith('/'))
+        destinationFolder = path.join(options.destinationFolder, './');
+
+    const fileNameRelative = source.filename.replace(globBase, '');
+    if (DEBUG) console.log('fileNameRelative: ' + fileNameRelative);
+
+    const goalPath = path.join(
+        destinationFolder,
+        fileNameRelative
+    );
+
+    return goalPath;
 }

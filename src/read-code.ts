@@ -69,6 +69,10 @@ export function getSolcVersion(code: string): string {
     return match[1];
 }
 
+export function hashCode(code: string): string {
+    return sha3_256(code);
+}
+
 export default async function readCodeFiles(options: Options): Promise<SourceCode[]> {
     const filePaths = await globPromise(options.sourceFolder, {});
     const ret = filePaths
@@ -80,7 +84,7 @@ export default async function readCodeFiles(options: Options): Promise<SourceCod
         ret.map(async (file) => {
             const code = await getSourceCode(file.filename);
             file.code = code;
-            file.codeHash = sha3_256(code);
+            file.codeHash = hashCode(code);
 
             file.solcVersion = getSolcVersion(code);
         })

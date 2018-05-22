@@ -19,7 +19,8 @@ const writeFile = util.promisify(fs.writeFile);
 const readFile = util.promisify(fs.readFile);
 
 import {
-    SolcCompiledFile
+    SolcCompiledFile,
+    Artifact
 } from './compiled.d';
 
 async function ensureDirectoryExists(): Promise<void> {
@@ -30,42 +31,34 @@ async function ensureDirectoryExists(): Promise<void> {
     }
 }
 
-function fileBySource(source: SourceCode): string {
+function fileBySource(hash: string): string {
     return path.join(
         paths.compileCache,
-        source.codeHash + '.json'
+        hash + '.json'
     );
 }
 
-export async function has(source: SourceCode): Promise<boolean> {
+export async function has(hash: string): Promise<boolean> {
     try {
-        const exists = await fileExists(fileBySource(source));
+        const exists = await fileExists(fileBySource(hash));
         return true;
     } catch (err) {
         return false;
     }
 }
 
-export async function get(source: SourceCode): Promise<{
-    compiled: SolcCompiledFile,
-    javascript: string,
-    typescript: string
-}> {
-    const content = await readFile(fileBySource(source), 'utf-8');
+export async function get(hash: string): Promise<Artifact> {
+    const content = await readFile(fileBySource(hash), 'utf-8');
     const artifact = JSON.parse(content);
     return artifact;
 }
 
 export async function set(
-    source: SourceCode,
-    artefact: {
-        compiled: SolcCompiledFile,
-        javascript: string,
-        typescript: string
-    }
+    hash: string,
+    artifact: Artifact
 ): Promise<void> {
     await ensureDirectoryExists();
-    const fileContent = JSON.stringify(artefact);
-    const filePath = fileBySource(source);
+    const fileContent = JSON.stringify(artifact);
+    const filePath = fileBySource(hash);
     await writeFile(filePath, fileContent);
 }

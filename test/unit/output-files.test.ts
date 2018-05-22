@@ -13,7 +13,8 @@ import compile from '../../src/compile';
 import readCodeFiles from '../../src/read-code';
 import {
     createJavascriptFile,
-    createTypescriptFile
+    createTypescriptFile,
+    outputPath
 } from '../../src/output-files';
 
 describe('output-files.test.js', () => {
@@ -41,6 +42,57 @@ describe('output-files.test.js', () => {
             const output = await createTypescriptFile(source, compiled);
 
             assert.equal(output.includes('<!--'), false);
+        });
+    });
+    describe('.outputPath()', () => {
+        it('single file only', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
+            const out = outputPath({
+                sourceFolder: '/home/foobar/workspace/myproject/contracts/MyContract.sol',
+                destinationFolder: '../compiled/',
+            }, source);
+
+            assert.equal(out, '/home/foobar/workspace/myproject/compiled/MyContract.sol');
+        });
+        it('no destinationFolder', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
+            const out = outputPath({
+                sourceFolder: '/home/foobar/workspace/myproject/contracts/MyContract.sol'
+            }, source);
+
+            assert.equal(out, '/home/foobar/workspace/myproject/contracts/MyContract.sol');
+        });
+        it('directory', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
+            const out = outputPath({
+                sourceFolder: '/home/foobar/workspace/myproject/contracts/*.sol',
+                destinationFolder: '../compiled/'
+            }, source);
+
+            assert.equal(out, '/home/foobar/workspace/myproject/compiled/MyContract.sol');
+        });
+        it('nested directory', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.filename = '/home/foobar/workspace/myproject/contracts/my/MyContract.sol';
+            const out = outputPath({
+                sourceFolder: '/home/foobar/workspace/myproject/contracts/**/.sol',
+                destinationFolder: '../compiled/'
+            }, source);
+
+            assert.equal(out, '/home/foobar/workspace/myproject/compiled/my/MyContract.sol');
+        });
+        it('absolut destination', async () => {
+            const { source, compiled } = await basicCompiled();
+            source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
+            const out = outputPath({
+                sourceFolder: '/home/foobar/workspace/myproject/contracts/**/.sol',
+                destinationFolder: '/home/compiled/'
+            }, source);
+
+            assert.equal(out, '/home/compiled/MyContract.sol');
         });
     });
 });

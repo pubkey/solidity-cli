@@ -39,3 +39,9 @@ export type SolcCompiledContract = {
 export type SolcCompiledFile = {
     [contractName: string]: SolcCompiledContract
 };
+
+export type Artifact = {
+    compiled: SolcCompiledFile,
+    javascript: string,
+    typescript: string
+};

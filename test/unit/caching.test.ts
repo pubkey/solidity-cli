@@ -27,7 +27,7 @@ describe('caching.test.js', () => {
             const javascript = await createJavascriptFile(source, compiled);
             const typescript = await createTypescriptFile(source, compiled);
             await caching.set(
-                source, {
+                source.codeHash, {
                     compiled,
                     javascript,
                     typescript
@@ -39,7 +39,7 @@ describe('caching.test.js', () => {
         it('should not have this in cache', async () => {
             const { source, compiled } = await basicCompiled();
             source.codeHash = 'foobar';
-            const has = await caching.has(source);
+            const has = await caching.has(source.codeHash);
             assert.equal(has, false);
         });
         it('should have cached the output', async () => {
@@ -47,13 +47,13 @@ describe('caching.test.js', () => {
             const javascript = await createJavascriptFile(source, compiled);
             const typescript = await createTypescriptFile(source, compiled);
             await caching.set(
-                source, {
+                source.codeHash, {
                     compiled,
                     javascript,
                     typescript
                 }
             );
-            const has = await caching.has(source);
+            const has = await caching.has(source.codeHash);
             assert.equal(has, true);
         });
     });
@@ -63,13 +63,13 @@ describe('caching.test.js', () => {
             const javascript = await createJavascriptFile(source, compiled);
             const typescript = await createTypescriptFile(source, compiled);
             await caching.set(
-                source, {
+                source.codeHash, {
                     compiled,
                     javascript,
                     typescript
                 }
             );
-            const artifact = await caching.get(source);
+            const artifact = await caching.get(source.codeHash);
             assert.deepEqual(artifact, {
                 compiled,
                 javascript,
