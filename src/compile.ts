@@ -6,7 +6,6 @@ import {
     SourceCode
 } from './read-code';
 
-import paths from './paths';
 import * as path from 'path';
 import {
     spawn

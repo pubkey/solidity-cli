@@ -10,16 +10,11 @@ import * as directoryExists from 'directory-exists';
 
 import paths from './paths';
 
-import {
-    SourceCode
-} from './read-code';
-
 const fileExists = util.promisify(fs.stat);
 const writeFile = util.promisify(fs.writeFile);
 const readFile = util.promisify(fs.readFile);
 
 import {
-    SolcCompiledFile,
     Artifact
 } from './compiled.d';
 
@@ -40,7 +35,7 @@ function fileBySource(hash: string): string {
 
 export async function has(hash: string): Promise<boolean> {
     try {
-        const exists = await fileExists(fileBySource(hash));
+        await fileExists(fileBySource(hash));
         return true;
     } catch (err) {
         return false;

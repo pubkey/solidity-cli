@@ -1,13 +1,6 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
 import * as assert from 'assert';
-import AsyncTestUtil from 'async-test-util';
-import * as path from 'path';
-
-import paths from '../../src/paths';
-
-import compile from '../../src/compile';
-import readCodeFiles from '../../src/read-code';
 
 import {
     basicCompiled
@@ -37,7 +30,7 @@ describe('caching.test.js', () => {
     });
     describe('.has()', () => {
         it('should not have this in cache', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.codeHash = 'foobar';
             const has = await caching.has(source.codeHash);
             assert.equal(has, false);

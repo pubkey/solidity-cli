@@ -4,8 +4,6 @@
  * So we use a custom shelljs
  */
 import * as util from 'util';
-import * as path from 'path';
-import * as fs from 'fs';
 import * as directoryExists from 'directory-exists';
 import * as rimraf from 'rimraf';
 import {

@@ -2,10 +2,6 @@
 
 import * as assert from 'assert';
 import AsyncTestUtil from 'async-test-util';
-import * as path from 'path';
-import * as fs from 'fs';
-import * as util from 'util';
-const readFile = util.promisify(fs.readFile);
 
 import {
     installVersion,

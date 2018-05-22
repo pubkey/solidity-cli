@@ -2,7 +2,6 @@
 
 import * as assert from 'assert';
 import AsyncTestUtil from 'async-test-util';
-import * as path from 'path';
 
 import paths from '../../src/paths';
 

@@ -1,16 +1,11 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
 import * as assert from 'assert';
-import AsyncTestUtil from 'async-test-util';
-import * as path from 'path';
 
-import paths from '../../src/paths';
 import {
     basicCompiled
 } from './cache';
 
-import compile from '../../src/compile';
-import readCodeFiles from '../../src/read-code';
 import {
     createJavascriptFile,
     createTypescriptFile,
@@ -46,7 +41,7 @@ describe('output-files.test.js', () => {
     });
     describe('.outputPath()', () => {
         it('single file only', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
             const out = outputPath({
                 sourceFolder: '/home/foobar/workspace/myproject/contracts/MyContract.sol',
@@ -56,7 +51,7 @@ describe('output-files.test.js', () => {
             assert.equal(out, '/home/foobar/workspace/myproject/compiled/MyContract.sol');
         });
         it('no destinationFolder', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
             const out = outputPath({
                 sourceFolder: '/home/foobar/workspace/myproject/contracts/MyContract.sol'
@@ -65,7 +60,7 @@ describe('output-files.test.js', () => {
             assert.equal(out, '/home/foobar/workspace/myproject/contracts/MyContract.sol');
         });
         it('directory', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
             const out = outputPath({
                 sourceFolder: '/home/foobar/workspace/myproject/contracts/*.sol',
@@ -75,7 +70,7 @@ describe('output-files.test.js', () => {
             assert.equal(out, '/home/foobar/workspace/myproject/compiled/MyContract.sol');
         });
         it('nested directory', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.filename = '/home/foobar/workspace/myproject/contracts/my/MyContract.sol';
             const out = outputPath({
                 sourceFolder: '/home/foobar/workspace/myproject/contracts/**/.sol',
@@ -85,7 +80,7 @@ describe('output-files.test.js', () => {
             assert.equal(out, '/home/foobar/workspace/myproject/compiled/my/MyContract.sol');
         });
         it('absolut destination', async () => {
-            const { source, compiled } = await basicCompiled();
+            const { source } = await basicCompiled();
             source.filename = '/home/foobar/workspace/myproject/contracts/MyContract.sol';
             const out = outputPath({
                 sourceFolder: '/home/foobar/workspace/myproject/contracts/**/.sol',

@@ -1,7 +1,6 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
 import * as assert from 'assert';
-import AsyncTestUtil from 'async-test-util';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as util from 'util';
@@ -38,10 +37,10 @@ describe('read-code.test.js', () => {
     describe('.readCodeFiles()', () => {
         it('should get all files', async () => {
             const pathArg = contractsFolder + '/*.sol';
-            console.log(pathArg);
             const codeAr = await readCodeFiles({
                 sourceFolder: pathArg
             });
+            assert.ok(codeAr);
         });
     });
 });

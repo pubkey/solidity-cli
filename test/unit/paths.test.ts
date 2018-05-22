@@ -1,7 +1,6 @@
 /// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 
 import * as assert from 'assert';
-import AsyncTestUtil from 'async-test-util';
 
 import paths from '../../src/paths';
 

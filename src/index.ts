@@ -1,6 +1,3 @@
-import * as path from 'path';
-import * as fs from 'fs';
-
 import {
     Options
 } from './options';
@@ -63,4 +60,8 @@ export async function compile(code: string): Promise<SolcCompiledFile> {
     };
     const artifact = await generateOutput(pseudoSource);
     return artifact.compiled;
+}
+
+export async function runCli(options: Options) {
+
 }
