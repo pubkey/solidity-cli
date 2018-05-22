@@ -7,4 +7,5 @@ script:
 - npm install --depth 0 --silent
 - npm run lint
 - npm run test
+- npm run test:cli
 - npm run build

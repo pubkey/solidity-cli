@@ -22,6 +22,7 @@
         "transpile": "tsc -p ./ && echo '# transpile sucess!'",
         "pretest": "npm run transpile && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache",
         "test": "mocha --bail --exit ./dist/test/index.test.js  ./dist/test/integration.test.js",
+        "test:cli": "npm run transpile && bash ./test-cli.bash",
         "build": "npm run transpile",
         "dev": "watch 'npm run test:node' src/ test/",
         "tcompile": "npm run transpile && node ./tmp/src/compile.node.js cHJhZ21hIHNvbGlkaXR5IDAuNC4yNDsNCg0KDQpjb250cmFjdCBCYXNpYyB7DQogICAgYWRkcmVzcyBwdWJsaWMgb3duZXI7DQp9DQo="
