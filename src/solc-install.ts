@@ -7,7 +7,6 @@ import * as util from 'util';
 import * as path from 'path';
 import * as fs from 'fs';
 import * as directoryExists from 'directory-exists';
-import * as npmi from 'npmi';
 import * as rimraf from 'rimraf';
 import {
     exec
@@ -15,7 +14,6 @@ import {
 
 import paths from './paths';
 
-const npmInstall = util.promisify(npmi);
 const removeFolder = util.promisify(rimraf);
 
 /**

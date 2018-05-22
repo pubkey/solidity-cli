@@ -37,19 +37,19 @@
     ],
     "homepage": "https://github.com/pubkey/solcjs-cli#readme",
     "dependencies": {
-        "child-process-promise": "^2.2.1",
-        "commander": "^2.15.1",
-        "directory-exists": "^2.0.0",
-        "glob": "^7.1.2",
+        "child-process-promise": "2.2.1",
+        "commander": "2.15.1",
+        "directory-exists": "2.0.0",
+        "glob": "7.1.2",
         "js-sha3": "0.7.0",
-        "solc": "^0.4.24"
+        "solc": "0.4.24"
     },
     "devDependencies": {
         "@types/node": "10.1.1",
         "@types/mocha": "5.2.0",
         "assert": "1.4.1",
         "async-test-util": "1.5.1",
-        "command-line-args": "^5.0.2",
+        "command-line-args": "5.0.2",
         "concurrently": "3.5.1",
         "delete": "1.1.0",
         "exists-file": "3.0.2",
