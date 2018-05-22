@@ -29,7 +29,7 @@ export async function installVersion(version: string): Promise<boolean> {
     try {
         // console.log('# installing solc@' + version);
         await new Promise((res, rej) => {
-            const shell = 'npm install solc@' + version + ' --prefix ' + installPath + ' --depth 0 --silent';
+            const shell = 'npm install solc@' + version + ' --prefix ' + installPath + ' --depth 0 --silent --audit false';
             exec(shell, function(code, stdout, stderr) {
                 if (code === 0) res();
                 else rej(new Error(stderr));
