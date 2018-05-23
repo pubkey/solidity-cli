@@ -15,12 +15,12 @@
         "solidity": "./dist/src/cli.js"
     },
     "main": "./dist/src/index.js",
-    "types": "./src/index.d.ts",
+    "types": "./src/index.ts",
     "scripts": {
         "lint": "tslint --project .",
-        "pretranspile": "rimraf -rf ./dist && mkdir ./dist",
+        "pretranspile": "rimraf -rf ./dist && mkdir ./dist && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache",
         "transpile": "tsc -p ./ && echo '# transpile sucess!'",
-        "pretest": "npm run transpile && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache",
+        "pretest": "npm run transpile",
         "test": "mocha --bail --exit ./dist/test/index.test.js  ./dist/test/integration.test.js",
         "test:cli": "npm run transpile && bash ./test-cli.bash",
         "build": "npm run transpile",

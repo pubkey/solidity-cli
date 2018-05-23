@@ -2,6 +2,7 @@
 
 import * as yargs from 'yargs';
 import * as path from 'path';
+
 import version from './version';
 
 import {
@@ -52,9 +53,9 @@ if (options.destinationFolder) {
     options.destinationFolder = path.join(process.cwd(), options.destinationFolder);
 }
 
-console.log('bbbb');
-console.dir(yargs.argv);
-console.dir(options);
-console.log(process.cwd());
+// console.log('bbbb');
+// console.dir(yargs.argv);
+// console.dir(options);
+// console.log(process.cwd());
 
 runCli(options);

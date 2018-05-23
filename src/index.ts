@@ -1,4 +1,8 @@
 import * as path from 'path';
+import * as util from 'util';
+import * as fs from 'fs';
+
+const writeFile = util.promisify(fs.writeFile);
 
 import {
     Options
@@ -7,6 +11,11 @@ import {
 import {
     SolcCompiledFile,
     Artifact
+} from './compiled.d';
+
+export {
+    SolcCompiledContract,
+    SolcCompiledFile
 } from './compiled.d';
 
 import {
@@ -94,8 +103,15 @@ export async function runCli(options: Options) {
 
     // write to files
     await Promise.all(
-        artifacts.map(async(artifact) => {
-            // TODO continue here
+        artifacts.map(async (output) => {
+            await writeFile(
+                path.join(output.destinationFolder, output.fileName + '.js'),
+                output.artifact.javascript
+            );
+            await writeFile(
+                path.join(output.destinationFolder, output.fileName + '.ts'),
+                output.artifact.typescript
+            );
         })
     );
     console.dir(artifacts);

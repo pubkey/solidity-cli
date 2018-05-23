@@ -11,7 +11,7 @@ export type SolcCompiledContract = {
         '.data': {
             0: {
                 '.auxdata': string,
-                '.code:': CodeBlock[]
+                '.code': CodeBlock[]
             }
         }
     };

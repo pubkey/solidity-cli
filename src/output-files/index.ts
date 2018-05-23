@@ -12,6 +12,7 @@ const readFile = util.promisify(fs.readFile);
 import {
     SolcCompiledFile
 } from '../compiled.d';
+
 import {
     SourceCode
 } from '../read-code';
@@ -45,8 +46,7 @@ export async function createTypescriptFile(
     compiled: SolcCompiledFile
 ): Promise<string> {
     const template =
-        `
-/* tslint:disable */
+        `/* tslint:disable */
 /**
  * generated via solidity-cli
  * @link https://www.npmjs.com/package/solidity-cli
@@ -59,7 +59,7 @@ import {
 } from 'solidity-cli';
 
 declare type CompiledType = {
-    ${Object.keys(compiled).map(k => k + ': SolcCompiledContract;')}
+    ${Object.keys(compiled).map(k => `'${k}': SolcCompiledContract;`)}
 };
 const compiled: CompiledType = ${JSON.stringify(compiled, null, 2)};
 export default compiled;

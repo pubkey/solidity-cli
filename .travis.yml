@@ -8,4 +8,5 @@ script:
 - npm run lint
 - npm run test
 - npm run test:cli
+- npm run test:cli # must run twice to ensure everything works
 - npm run build
