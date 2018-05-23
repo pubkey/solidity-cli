@@ -70,7 +70,7 @@ It's recommended to use solidity-cli inside of a script in your `package.json`
 
 ### Programmatically
 
-Commpile the given solidity-code.
+Compile the given solidity-code.
 
 ```js
 import * as SolidityCli from 'solidity-cli';
