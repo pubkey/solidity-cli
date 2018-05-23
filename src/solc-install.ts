@@ -14,11 +14,24 @@ import paths from './paths';
 
 const removeFolder = util.promisify(rimraf);
 
+const INSTALL_VERSIONS_CACHE = {};
+
 /**
  * install the given version into the ./solidity-version - folder
  * returns false if already exists
  */
 export async function installVersion(version: string): Promise<boolean> {
+    if (INSTALL_VERSIONS_CACHE[version]) {
+        await INSTALL_VERSIONS_CACHE[version];
+        return false;
+    } else {
+        INSTALL_VERSIONS_CACHE[version] = _installVersion(version);
+        await INSTALL_VERSIONS_CACHE[version];
+        return true;
+    }
+}
+
+async function _installVersion(version: string): Promise<boolean> {
     const installPath = paths.solidityInstalls + '/' + version;
 
     // check if already exists

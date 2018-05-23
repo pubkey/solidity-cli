@@ -20,6 +20,19 @@ describe('solc-install.test.js', () => {
             const res = await installVersion('0.4.24');
             assert.equal(res, false);
         });
+        it('should not run the same version when called in parallel', async function() {
+            this.timeout(1000 * 60);
+            const results = await Promise.all([
+                installVersion('0.4.21'),
+                installVersion('0.4.21'),
+                installVersion('0.4.21')
+            ]);
+
+            const trues = results.filter(v => !!v);
+            const falses = results.filter(v => !v);
+            assert.equal(trues.length, 1);
+            assert.equal(falses.length, 2);
+        });
     });
     describe('.solcInstall()', () => {
         it('should install all versions', async function() {
