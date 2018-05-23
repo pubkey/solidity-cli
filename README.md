@@ -22,10 +22,6 @@
 ---
 
 
-# Solidity-Cli
-Compile solidity-code faster, easier and more reliable
-
-
 ## Features
 
 - **Caching**
@@ -34,7 +30,7 @@ Compile solidity-code faster, easier and more reliable
 
 - **Multi-Threading**
 
-  Compiling multiple contracts can take very long when done on a single process in series. Solidity-Cli compiles multiple contracts with one process per contract.
+  Compiling multiple contracts can take very long when done on a single process in series. Solidity-Cli compiles multiple contracts with a dedicated process per contract.
 
 - **Version-Discovery**
 
@@ -47,3 +43,14 @@ Compile solidity-code faster, easier and more reliable
 - **Typescript-Support**
 
   When you use typescript, you no longer have to manually add typings to the compilation output. Solidity-Cli generates a javascript and a typescript-file which only has to be imported.
+
+
+## Usage
+
+
+### CLI
+
+
+
+
+### Programatically

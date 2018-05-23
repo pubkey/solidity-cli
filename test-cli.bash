@@ -12,3 +12,4 @@ echo "## compile single file"
 rm -rf ./test/contracts/Basic.js
 rm -rf ./test/contracts/Basic.ts
 node ./dist/src/cli.js -i ./test/contracts/Basic.sol
+node ./test/contracts/Basic.js # test if valid

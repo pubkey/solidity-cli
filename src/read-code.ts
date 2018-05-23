@@ -73,22 +73,21 @@ export function hashCode(code: string): string {
     return sha3_256(code);
 }
 
+export async function readCodeFile(fileName: string): Promise<SourceCode> {
+    const code = await getSourceCode(fileName);
+    const ret: SourceCode = {
+        filename: fileName,
+        code,
+        codeHash: hashCode(code),
+        solcVersion: getSolcVersion(code)
+    };
+    return ret;
+}
+
 export default async function readCodeFiles(options: Options): Promise<SourceCode[]> {
-    const filePaths = await globPromise(options.sourceFolder, {});
-    const ret = filePaths
-        .map(p => ({
-            filename: p
-        }));
-
-    await Promise.all(
-        ret.map(async (file) => {
-            const code = await getSourceCode(file.filename);
-            file.code = code;
-            file.codeHash = hashCode(code);
-
-            file.solcVersion = getSolcVersion(code);
-        })
+    const filePaths: string[] = await globPromise(options.sourceFolder, {});
+    const ret: SourceCode[] = await Promise.all(
+        filePaths.map(file => readCodeFile(file))
     );
-
     return ret;
 }

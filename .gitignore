@@ -6,8 +6,7 @@ package-lock.json
 .com.google.*
 shelljs_*
 
-# TODO remove this before first build
-dist/
 tmp/
+.tmp/
 solc-installs/
 compile-cache/

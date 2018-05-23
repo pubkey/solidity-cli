@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as util from 'util';
 import * as fs from 'fs';
+import * as shelljs from 'shelljs';
 
 const writeFile = util.promisify(fs.writeFile);
 
@@ -20,6 +21,7 @@ export {
 
 import {
     hashCode,
+    readCodeFile
 } from './read-code';
 import readCodeFiles from './read-code';
 import {
@@ -80,6 +82,12 @@ export async function compileCode(code: string): Promise<SolcCompiledFile> {
     return artifact.compiled;
 }
 
+export async function compileFile(fileName: string): Promise<SolcCompiledFile> {
+    const source = await readCodeFile(fileName);
+    const artifact = await generateOutput(source);
+    return artifact.compiled;
+}
+
 export async function runCli(options: Options) {
     const codeFiles = await readCodeFiles(options);
     const artifacts: {
@@ -101,6 +109,11 @@ export async function runCli(options: Options) {
         })
     );
 
+    // create destination if not exists
+    if (options.destinationFolder) {
+        shelljs.mkdir('-p', options.destinationFolder);
+    }
+
     // write to files
     await Promise.all(
         artifacts.map(async (output) => {
@@ -114,5 +127,4 @@ export async function runCli(options: Options) {
             );
         })
     );
-    console.dir(artifacts);
 }

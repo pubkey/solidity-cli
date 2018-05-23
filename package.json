@@ -18,7 +18,7 @@
     "types": "./src/index.ts",
     "scripts": {
         "lint": "tslint --project .",
-        "pretranspile": "rimraf -rf ./dist && mkdir ./dist && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache",
+        "pretranspile": "rimraf -rf ./dist && mkdir ./dist && rimraf -rf ./solc-installs && rimraf -rf ./compile-cache && rimraf -rf ./tmp",
         "transpile": "tsc -p ./ && echo '# transpile sucess!'",
         "pretest": "npm run transpile",
         "test": "mocha --bail --exit ./dist/test/index.test.js  ./dist/test/integration.test.js",
