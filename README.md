@@ -68,7 +68,7 @@ It's recommended to use solidity-cli inside of a script in your `package.json`
 }
 ```
 
-### Programatically
+### Programmatically
 
 Commpile the given solidity-code.
 
