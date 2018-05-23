@@ -7,10 +7,10 @@ import paths from '../../src/paths';
 describe('paths.test.js', () => {
     it('solc-installs', () => {
         assert.ok(paths.solidityInstalls);
-        assert.ok(paths.solidityInstalls.includes('solcjs-cli/solc-installs'));
+        assert.ok(paths.solidityInstalls.includes('solidity-cli/solc-installs'));
     });
     it('compile-cache', () => {
         assert.ok(paths.compileCache);
-        assert.ok(paths.compileCache.includes('solcjs-cli/compile-cache'));
+        assert.ok(paths.compileCache.includes('solidity-cli/compile-cache'));
     });
 });

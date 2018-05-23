@@ -29,17 +29,17 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/pubkey/solcjs-cli.git"
+        "url": "git+https://github.com/pubkey/solidity-cli.git"
     },
     "author": "pubkey",
     "license": "Apache-2.0",
     "bugs": {
-        "url": "https://github.com/pubkey/solcjs-cli/issues"
+        "url": "https://github.com/pubkey/solidity-cli/issues"
     },
     "pre-commit": [
         "lint"
     ],
-    "homepage": "https://github.com/pubkey/solcjs-cli#readme",
+    "homepage": "https://github.com/pubkey/solidity-cli#readme",
     "dependencies": {
         "child-process-promise": "2.2.1",
         "directory-exists": "2.0.0",
