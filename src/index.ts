@@ -20,13 +20,17 @@ import {
 
 import * as caching from './caching';
 
-import compileCode from './compile';
+import compile from './compile';
 
 import {
     createJavascriptFile,
     createTypescriptFile,
     outputPath
 } from './output-files';
+
+import {
+    installVersion
+} from './solc-install';
 
 /**
  * generates the output
@@ -38,7 +42,8 @@ export async function generateOutput(source: SourceCode): Promise<Artifact> {
         const artifact = await caching.get(source.codeHash);
         return artifact;
     } else {
-        const compiled = await compileCode(source);
+        await installVersion(source.solcVersion);
+        const compiled = await compile(source);
         const artifact = {
             compiled: compiled,
             javascript: await createJavascriptFile(source, compiled),
@@ -55,7 +60,7 @@ export async function generateOutput(source: SourceCode): Promise<Artifact> {
  * use this if you dont want to generate files,
  * but only get the compiled output
  */
-export async function compile(code: string): Promise<SolcCompiledFile> {
+export async function compileCode(code: string): Promise<SolcCompiledFile> {
     const pseudoSource: SourceCode = {
         filename: 'programatically',
         code: code,
