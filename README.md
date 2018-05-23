@@ -47,9 +47,26 @@
 
 ### CLI
 
+`npm install -g solidity-cli`
+
 Compile all `*.sol` files from one folder into the destination.
 
-`solidity -i ./test/contracts/*.sol -o ./test/compiled/`
+`solidity -i './test/contracts/*.sol' -o ./test/compiled/`
+
+It's recommended to use solidity-cli inside of a script in your `package.json`
+
+`npm install solidity-cli --save-dev`
+
+```json
+{
+    "scripts": {
+      "pretest": "solidity-cli -i './contracts/*.sol' -o ./compiled"
+    },
+    "dependencies": {
+        "solidity-cli": "X.X.X"
+    }
+}
+```
 
 ### Programatically
 
