@@ -1,4 +1,28 @@
-# solidity-cli
+<p align="center">
+  <a href="https://github.com/pubkey/Solidity-Cli">
+    <img src="./solidity.svg" width="50px" />
+  </a>
+</p>
+
+<h1 align="center">Solidity-Cli</h1>
+<p align="center">
+  <strong>Compile solidity-code faster, easier and more reliable</strong>
+</p>
+
+<p align="center">
+    <a alt="travis" href="https://travis-ci.org/pubkey/solidity-cli">
+        <img src="https://travis-ci.org/pubkey/solidity-cli.svg?branch=master" /></a>
+    <a href="https://twitter.com/intent/follow?screen_name=pubkeypubkey">
+        <img src="https://img.shields.io/twitter/follow/pubkeypubkey.svg?style=social&logo=twitter"
+            alt="follow on Twitter"></a>
+</p>
+
+<br/>
+
+---
+
+
+# Solidity-Cli
 Compile solidity-code faster, easier and more reliable
 
 
@@ -6,20 +30,20 @@ Compile solidity-code faster, easier and more reliable
 
 - **Caching**
 
-  When you run the compilation as one step of your build-process, it could waste you much time always compiling the same contracts again and again. Solidity-cli caches the compilation output and only recompiles when the code of your contract actually has changed.
+  When you run the compilation as one step of your build-process, it could waste you much time always compiling the same contracts again and again. Solidity-Cli caches the compilation output and only recompiles when the code of your contract actually has changed.
 
 - **Multi-Threading**
 
-  Compiling multiple contracts can take very long when done on a single process in series. Solidity-cli compiles multiple contracts with one process per contract.
-  
+  Compiling multiple contracts can take very long when done on a single process in series. Solidity-Cli compiles multiple contracts with one process per contract.
+
 - **Version-Discovery**
 
-  Often you have different contracts with different solidity-versions. It is a struggle to install multiple compiler-versions in the same project. Solidity-cli detects the version by the contracts code `pragma solidity 0.X.X;` and automatically installs it if needed.
+  Often you have different contracts with different solidity-versions. It is a struggle to install multiple compiler-versions in the same project. Solidity-Cli detects the version by the contracts code `pragma solidity 0.X.X;` and automatically installs it if needed.
 
 - **Imports**
 
-  Soldity-cli automatically manages the import-statements of your code. `import "./OtherContract.sol";` just works.
+  Solidity-Cli automatically manages the import-statements of your code. `import "./OtherContract.sol";` just works.
 
 - **Typescript-Support**
 
-  When you use typescript, you no longer have to manually add typings to the compilation output. Solidity-cli generates a javascript and a typescript-file which only has to be imported.
+  When you use typescript, you no longer have to manually add typings to the compilation output. Solidity-Cli generates a javascript and a typescript-file which only has to be imported.
