@@ -19,38 +19,60 @@
 
 <br/>
 
----
-
+* * *
 
 ## Features
 
-- **Caching**
+-   **Caching**
 
-  When you run the compilation as one step of your build-process, it could waste you much time always compiling the same contracts again and again. Solidity-Cli caches the compilation output and only recompiles when the code of your contract actually has changed.
+    When you run the compilation as one step of your build-process, it could waste you much time always compiling the same contracts again and again. Solidity-Cli caches the compilation output and only recompiles when the code of your contract actually has changed.
 
-- **Multi-Threading**
+-   **Multi-Threading**
 
-  Compiling multiple contracts can take very long when done on a single process in series. Solidity-Cli compiles multiple contracts with a dedicated process per contract.
+    Compiling multiple contracts can take very long when done on a single process in series. Solidity-Cli compiles multiple contracts with a dedicated process per contract.
 
-- **Version-Discovery**
+-   **Version-Discovery**
 
-  Often you have different contracts with different solidity-versions. It is a struggle to install multiple compiler-versions in the same project. Solidity-Cli detects the version by the contracts code `pragma solidity 0.X.X;` and automatically installs it if needed.
+    Often you have different contracts with different solidity-versions. It is a struggle to install multiple compiler-versions in the same project. Solidity-Cli detects the version by the contracts code `pragma solidity 0.X.X;` and automatically installs it if needed.
 
-- **Imports**
+-   **Imports**
 
-  Solidity-Cli automatically manages the import-statements of your code. `import "./OtherContract.sol";` just works.
+    Solidity-Cli automatically manages the import-statements of your code. `import "./OtherContract.sol";` just works.
 
-- **Typescript-Support**
+-   **Typescript-Support**
 
-  When you use typescript, you no longer have to manually add typings to the compilation output. Solidity-Cli generates a javascript and a typescript-file which only has to be imported.
-
+    When you use typescript, you no longer have to manually add typings to the compilation output. Solidity-Cli generates a javascript and a typescript-file which only has to be imported.
 
 ## Usage
 
-
 ### CLI
 
+Compile all `*.sol` files from one folder into the destination.
 
-
+`solidity -i ./test/contracts/*.sol -o ./test/compiled/`
 
 ### Programatically
+
+Commpile the given solidity-code.
+
+```js
+import * as SolidityCli from 'solidity-cli';
+const compiled = await SolidityCli.compileCode(myCode);
+```
+
+Compile the the given solidity-file.
+
+```js
+import * as SolidityCli from 'solidity-cli';
+const compiled = await SolidityCli.compileFile('/home/foobar/myProject/contracts/Basic.sol');
+```
+
+Compile all files from one folder and write the output to another.
+
+```js
+import * as SolidityCli from 'solidity-cli';
+await SolidityCli.runCli({
+    sourceFolder: '/home/foobar/myProject/contracts/*.sol',
+    destinationFolder: '/home/foobar/myProject/compiled/*.sol'
+});
+```

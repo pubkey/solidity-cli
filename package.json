@@ -12,7 +12,8 @@
         "smart-contract"
     ],
     "bin": {
-        "solidity": "./dist/src/cli.js"
+        "solidity": "./dist/src/cli.js",
+        "solidity-cli": "./dist/src/cli.js"
     },
     "main": "./dist/src/index.js",
     "types": "./src/index.ts",
