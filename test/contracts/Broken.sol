@@ -8,7 +8,7 @@ contract Broken {
     address public owner;
 
     function anyFunction(
-        address whoever // broken because unused
+        addressFoobar whoever // broken because unknown type
     ) public pure returns(bytes32) {
         return "foobar";
     }

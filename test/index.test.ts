@@ -4,3 +4,4 @@ import './unit/solc-install.test';
 import './unit/compile.test';
 import './unit/output-files.test';
 import './unit/caching.test';
+import './unit/issues.test';

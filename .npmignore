@@ -1,5 +1,6 @@
 solc-installs/
 compile-cache/
+compile-tmp/
 node_modules/
 log.txt
 test/

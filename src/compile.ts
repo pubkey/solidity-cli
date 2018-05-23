@@ -2,18 +2,27 @@
  * compiles the source-code in an own thread
  */
 
-import {
-    SourceCode
-} from './read-code';
-
 import * as path from 'path';
+import * as fs from 'fs';
+import * as util from 'util';
+
+const readFile = util.promisify(fs.readFile);
+const unlink = util.promisify(fs.unlink);
+
+import AsyncTestUtil from 'async-test-util';
 import {
     spawn
 } from 'child-process-promise';
 
 import {
+    SourceCode
+} from './read-code';
+import paths from './paths';
+import {
     SolcCompiledFile
 } from './compiled.d';
+
+const WARNING_REGEX = /^\:[0-9]*:[0-9]*\: Warning:/;
 
 export default async function compile(source: SourceCode): Promise<SolcCompiledFile> {
 
@@ -22,9 +31,12 @@ export default async function compile(source: SourceCode): Promise<SolcCompiledF
 
     const stdout: string[] = [];
     const stderr: string[] = [];
+
+    const rand = AsyncTestUtil.randomString(10);
     const promise = spawn('node', [
         nodeScriptLocation,
-        base64Code
+        base64Code,
+        rand
     ]);
     const childProcess = promise.childProcess;
 
@@ -41,15 +53,27 @@ export default async function compile(source: SourceCode): Promise<SolcCompiledF
                    `);
     }
 
-    const result = JSON.parse(stdout[0]);
+    const resultLocation = path.join(paths.compileTmpFolder, rand + '.json');
+    const resultString = await readFile(resultLocation, 'utf-8');
+    await unlink(resultLocation);
+    const resultJson = JSON.parse(resultString);
 
-    if (!result.success) {
-        throw new Error(
-            'could not compile contract ' + source.filename + '\n' +
-            'errors: \n' +
-            result.error.join('\n')
-        );
-    } else {
-        return result.result;
+    if (resultJson.version !== source.solcVersion) {
+        throw new Error('solidity-cli: version not equal, this should never happen');
     }
+
+    if (resultJson.compiled.errors) {
+        const errors = resultJson.compiled.errors.filter(err => !WARNING_REGEX.test(err));
+        // const warnings = resultJson.compiled.errors.filter(err => WARNING_REGEX.test(err));
+
+        if (errors.length > 0) {
+            throw new Error(
+                '# could not compile contract ' + source.filename + '\n' +
+                '# errors: \n' +
+                '#' + resultJson.compiled.errors.join('\n#')
+            );
+        }
+    }
+
+    return resultJson.compiled.contracts;
 }
