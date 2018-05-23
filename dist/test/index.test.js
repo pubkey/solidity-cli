@@ -6,4 +6,5 @@ require("./unit/solc-install.test");
 require("./unit/compile.test");
 require("./unit/output-files.test");
 require("./unit/caching.test");
+require("./unit/issues.test");
 //# sourceMappingURL=index.test.js.map

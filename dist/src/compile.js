@@ -39,10 +39,17 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var path = require("path");
+var fs = require("fs");
+var util = require("util");
+var readFile = util.promisify(fs.readFile);
+var unlink = util.promisify(fs.unlink);
+var async_test_util_1 = require("async-test-util");
 var child_process_promise_1 = require("child-process-promise");
+var paths_1 = require("./paths");
+var WARNING_REGEX = /^\:[0-9]*:[0-9]*\: Warning:/;
 function compile(source) {
     return __awaiter(this, void 0, void 0, function () {
-        var base64Code, nodeScriptLocation, stdout, stderr, promise, childProcess, err_1, result;
+        var base64Code, nodeScriptLocation, stdout, stderr, rand, promise, childProcess, err_1, resultLocation, resultString, resultJson, errors, warnings;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -50,9 +57,11 @@ function compile(source) {
                     nodeScriptLocation = path.join(__dirname, 'compile.node.js');
                     stdout = [];
                     stderr = [];
+                    rand = async_test_util_1.default.randomString(10);
                     promise = child_process_promise_1.spawn('node', [
                         nodeScriptLocation,
-                        base64Code
+                        base64Code,
+                        rand
                     ]);
                     childProcess = promise.childProcess;
                     childProcess.stdout.on('data', function (data) { return stdout.push(data.toString()); });
@@ -68,16 +77,27 @@ function compile(source) {
                     err_1 = _a.sent();
                     throw new Error("could not compile\n                   # Error: " + err_1 + "\n                   # Output: " + stdout + "\n                   # ErrOut: " + stderr + "\n                   ");
                 case 4:
-                    result = JSON.parse(stdout[0]);
-                    if (!result.success) {
-                        throw new Error('could not compile contract ' + source.filename + '\n' +
-                            'errors: \n' +
-                            result.error.join('\n'));
+                    resultLocation = path.join(paths_1.default.compileTmpFolder, rand + '.json');
+                    return [4 /*yield*/, readFile(resultLocation, 'utf-8')];
+                case 5:
+                    resultString = _a.sent();
+                    resultJson = JSON.parse(resultString);
+                    if (resultJson.version !== source.solcVersion) {
+                        throw new Error('solidity-cli: version not equal, this should never happen');
                     }
-                    else {
-                        return [2 /*return*/, result.result];
+                    if (resultJson.compiled.errors) {
+                        errors = resultJson.compiled.errors.filter(function (err) { return !WARNING_REGEX.test(err); });
+                        warnings = resultJson.compiled.errors.filter(function (err) { return WARNING_REGEX.test(err); });
+                        if (errors.length > 0) {
+                            throw new Error('# could not compile contract ' + source.filename + '\n' +
+                                '# errors: \n' +
+                                '#' + resultJson.compiled.errors.join('\n#'));
+                        }
                     }
-                    return [2 /*return*/];
+                    return [4 /*yield*/, unlink(resultLocation)];
+                case 6:
+                    _a.sent();
+                    return [2 /*return*/, resultJson.compiled.contracts];
             }
         });
     });

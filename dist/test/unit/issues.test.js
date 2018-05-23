@@ -1,8 +1,5 @@
 "use strict";
-/**
- * node-script that takes solidity-code as base64 and outputs a json with the compile-output
- * we use this to make multi-threading easiser
- */
+/// <reference path="../../node_modules/@types/mocha/index.d.ts" />
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -39,40 +36,31 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-var util = require("util");
-var fs = require("fs");
-var shelljs = require("shelljs");
-var path = require("path");
-var writeFile = util.promisify(fs.writeFile);
-var read_code_1 = require("./read-code");
-var paths_1 = require("./paths");
-// const codeBase64 = 'cHJhZ21hIHNvbGlkaXR5IDAuNC4yNDsNCg0KDQpjb250cmFjdCBCYXNpYyB7DQogICAgYWRkcmVzcyBwdWJsaWMgb3duZXI7DQp9DQo=';
-// const codeBase64 = 'cHJhZ21hIHNvbGlkaXR5IDAuNC4yNDsNCg0KDQpjb250cmFjdCBCYXNpYyB7DQogICAgYWRkcmVzczEgcHVibGljIG93bmVyOw0KfQ0K'; // broken
-var codeBase64 = process.argv[2];
-var location = process.argv[3] + '.json';
-var code = Buffer.from(codeBase64, 'base64').toString();
-var run = function (code) {
-    return __awaiter(this, void 0, void 0, function () {
-        var solcVersion, solc, compiled, out;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    solcVersion = read_code_1.getSolcVersion(code);
-                    solc = require(paths_1.default.solidityInstalls + '/' + solcVersion + '/node_modules/solc');
-                    compiled = solc.compile(code, 1);
-                    out = {
-                        version: solcVersion,
-                        compiled: compiled
-                    };
-                    // create destination if not exists
-                    shelljs.mkdir('-p', paths_1.default.compileTmpFolder);
-                    return [4 /*yield*/, writeFile(path.join(paths_1.default.compileTmpFolder, location), JSON.stringify(out, null, 2))];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
+var assert = require("assert");
+var paths_1 = require("../../src/paths");
+var compile_1 = require("../../src/compile");
+var read_code_1 = require("../../src/read-code");
+describe('issues.test.js', function () {
+    it('could not compile complex contract with warnings', function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var files, compiled;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.timeout(60 * 1000);
+                        return [4 /*yield*/, read_code_1.default({
+                                sourceFolder: paths_1.default.contractsFolder + '/DonationBag.sol'
+                            })];
+                    case 1:
+                        files = _a.sent();
+                        return [4 /*yield*/, compile_1.default(files[0])];
+                    case 2:
+                        compiled = _a.sent();
+                        assert.ok(compiled);
+                        return [2 /*return*/];
+                }
+            });
         });
     });
-};
-run(code);
-//# sourceMappingURL=compile.node.js.map
+});
+//# sourceMappingURL=issues.test.js.map
