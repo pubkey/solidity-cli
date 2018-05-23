@@ -29,7 +29,7 @@ yargs
         describe: 'Output directory for compiled contracts.',
         type: 'string'
     })
-    .global(['version', 'optimize'])
+    .global(['version'])
     .showHelpOnFail(false, 'Specify --help for available options')
     .help();
 
