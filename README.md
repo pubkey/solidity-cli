@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/pubkey/Solidity-Cli">
-    <img src="./solidity.svg" width="50px" />
+    <img src="https://cdn.rawgit.com/pubkey/solidity-cli/master/docs/solidity.svg" width="50px" />
   </a>
 </p>
 
