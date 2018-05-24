@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var assert = require("assert");
+// import AsyncTestUtil from 'async-test-util';
 var paths_1 = require("../../src/paths");
 var compile_1 = require("../../src/compile");
 var read_code_1 = require("../../src/read-code");

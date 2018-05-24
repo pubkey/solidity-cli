@@ -49,7 +49,7 @@ var paths_1 = require("./paths");
 var WARNING_REGEX = /^\:[0-9]*:[0-9]*\: Warning:/;
 function compile(source) {
     return __awaiter(this, void 0, void 0, function () {
-        var base64Code, nodeScriptLocation, stdout, stderr, rand, promise, childProcess, err_1, resultLocation, resultString, resultJson, errors, warnings;
+        var base64Code, nodeScriptLocation, stdout, stderr, rand, promise, childProcess, err_1, resultLocation, resultString, resultJson, errors;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -81,22 +81,22 @@ function compile(source) {
                     return [4 /*yield*/, readFile(resultLocation, 'utf-8')];
                 case 5:
                     resultString = _a.sent();
+                    return [4 /*yield*/, unlink(resultLocation)];
+                case 6:
+                    _a.sent();
                     resultJson = JSON.parse(resultString);
                     if (resultJson.version !== source.solcVersion) {
                         throw new Error('solidity-cli: version not equal, this should never happen');
                     }
                     if (resultJson.compiled.errors) {
                         errors = resultJson.compiled.errors.filter(function (err) { return !WARNING_REGEX.test(err); });
-                        warnings = resultJson.compiled.errors.filter(function (err) { return WARNING_REGEX.test(err); });
+                        // const warnings = resultJson.compiled.errors.filter(err => WARNING_REGEX.test(err));
                         if (errors.length > 0) {
                             throw new Error('# could not compile contract ' + source.filename + '\n' +
                                 '# errors: \n' +
                                 '#' + resultJson.compiled.errors.join('\n#'));
                         }
                     }
-                    return [4 /*yield*/, unlink(resultLocation)];
-                case 6:
-                    _a.sent();
                     return [2 /*return*/, resultJson.compiled.contracts];
             }
         });

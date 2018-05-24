@@ -1,6 +1,6 @@
 {
     "name": "solidity-cli",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Comple solidity-code faster, easier and more reliable",
     "keywords": [
         "solidity",

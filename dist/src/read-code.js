@@ -100,10 +100,10 @@ function getSourceCode(fileName) {
 }
 exports.getSourceCode = getSourceCode;
 function getSolcVersion(code) {
-    var regex = /^pragma solidity ([0-9\.]*);/g;
+    var regex = /^pragma solidity [\^\~]?([0-9\.]*);/g;
     var match = regex.exec(code);
     if (!match)
-        throw new Error('so pragme solidity version set');
+        throw new Error('no pragma solidity version set');
     return match[1];
 }
 exports.getSolcVersion = getSolcVersion;
