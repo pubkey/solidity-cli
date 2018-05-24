@@ -63,9 +63,9 @@ export async function getSourceCode(fileName: string): Promise<string> {
 }
 
 export function getSolcVersion(code: string): string {
-    const regex = /^pragma solidity ([0-9\.]*);/g;
+    const regex = /^pragma solidity [\^\~]?([0-9\.]*);/g;
     const match = regex.exec(code);
-    if (!match) throw new Error('so pragme solidity version set');
+    if (!match) throw new Error('no pragma solidity version set');
     return match[1];
 }
 

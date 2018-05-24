@@ -11,3 +11,4 @@ tmp/
 solc-installs/
 compile-cache/
 compile-tmp/
+solidity-cli
