@@ -46,6 +46,10 @@ function matches(regex, str): { inner: string, full: string }[] {
  */
 export async function getSourceCode(fileName: string): Promise<string> {
     let code = await readFile(fileName, 'utf-8');
+    
+    const codeCommentsRegex = /(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/)|(\/\/.*)/g;
+	code = code.replace(codeCommentsRegex, '');
+
     const importsRegex = /import "([^"]*)";/g;
     const imports = matches(importsRegex, code);
 
