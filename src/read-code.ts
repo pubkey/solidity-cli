@@ -27,7 +27,7 @@ export type SourceCode = {
 /**
  * https://stackoverflow.com/a/432503
  */
-function matches(regex, str): { inner: string, full: string }[] {
+function matches(regex: RegExp, str: string): { inner: string, full: string }[] {
     const ret: any = [];
     let match = regex.exec(str);
     while (match !== null) {

@@ -21,7 +21,7 @@ const codeBase64 = process.argv[2];
 const location = process.argv[3] + '.json';
 const code = Buffer.from(codeBase64, 'base64').toString();
 
-const run = async function(code): Promise<void> {
+const run = async function(code: string): Promise<void> {
     const solcVersion = getSolcVersion(code);
 
     const solc = require(paths.solidityInstalls + '/' + solcVersion + '/node_modules/solc');

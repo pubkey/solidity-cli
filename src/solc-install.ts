@@ -4,7 +4,8 @@
  * So we use a custom shelljs
  */
 import * as util from 'util';
-import * as directoryExists from 'directory-exists';
+const directoryExists = require('directory-exists');
+
 import * as rimraf from 'rimraf';
 import {
     exec
@@ -43,7 +44,7 @@ async function _installVersion(version: string): Promise<boolean> {
         // console.log('# installing solc@' + version);
         await new Promise((res, rej) => {
             const shell = 'npm install solc@' + version + ' --prefix ' + installPath + ' --depth 0 --silent --audit false';
-            exec(shell, function(code, stdout, stderr) {
+            exec(shell, function(code, stdout: string, stderr: string) {
                 if (code === 0) res();
                 else rej(new Error(stderr));
             });

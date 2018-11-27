@@ -10,9 +10,8 @@ const readFile = util.promisify(fs.readFile);
 const unlink = util.promisify(fs.unlink);
 
 import AsyncTestUtil from 'async-test-util';
-import {
-    spawn
-} from 'child-process-promise';
+
+const { spawn } = require('child-process-promise');
 
 import {
     SourceCode
@@ -40,8 +39,8 @@ export default async function compile(source: SourceCode): Promise<SolcCompiledF
     ]);
     const childProcess = promise.childProcess;
 
-    childProcess.stdout.on('data', data => stdout.push(data.toString()));
-    childProcess.stderr.on('data', data => stderr.push(data.toString()));
+    childProcess.stdout.on('data', (data: any) => stdout.push(data.toString()));
+    childProcess.stderr.on('data', (data: any) => stderr.push(data.toString()));
 
     try {
         await promise;
@@ -63,7 +62,7 @@ export default async function compile(source: SourceCode): Promise<SolcCompiledF
     }
 
     if (resultJson.compiled.errors) {
-        const errors = resultJson.compiled.errors.filter(err => !WARNING_REGEX.test(err));
+        const errors = resultJson.compiled.errors.filter((err: string) => !WARNING_REGEX.test(err));
         // const warnings = resultJson.compiled.errors.filter(err => WARNING_REGEX.test(err));
 
         if (errors.length > 0) {

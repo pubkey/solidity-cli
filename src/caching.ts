@@ -6,7 +6,7 @@
 import * as util from 'util';
 import * as fs from 'fs';
 import * as path from 'path';
-import * as directoryExists from 'directory-exists';
+const directoryExists = require('directory-exists');
 
 import paths from './paths';
 
