@@ -41,7 +41,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
  * So we use a custom shelljs
  */
 var util = require("util");
-var directoryExists = require("directory-exists");
+var directoryExists = require('directory-exists');
 var rimraf = require("rimraf");
 var shelljs_1 = require("shelljs");
 var paths_1 = require("./paths");

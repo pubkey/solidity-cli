@@ -66,13 +66,15 @@ function matches(regex, str) {
  */
 function getSourceCode(fileName) {
     return __awaiter(this, void 0, void 0, function () {
-        var code, importsRegex, imports;
+        var code, codeCommentsRegex, importsRegex, imports;
         var _this = this;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, readFile(fileName, 'utf-8')];
                 case 1:
                     code = _a.sent();
+                    codeCommentsRegex = /(\/\*([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+\/)|(\/\/.*)/g;
+                    code = code.replace(codeCommentsRegex, '');
                     importsRegex = /import "([^"]*)";/g;
                     imports = matches(importsRegex, code);
                     return [4 /*yield*/, Promise.all(imports.map(function (match) { return __awaiter(_this, void 0, void 0, function () {

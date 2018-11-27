@@ -43,7 +43,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var util = require("util");
 var fs = require("fs");
 var path = require("path");
-var directoryExists = require("directory-exists");
+var directoryExists = require('directory-exists');
 var paths_1 = require("./paths");
 var fileExists = util.promisify(fs.stat);
 var writeFile = util.promisify(fs.writeFile);

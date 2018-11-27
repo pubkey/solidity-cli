@@ -44,7 +44,7 @@ var util = require("util");
 var readFile = util.promisify(fs.readFile);
 var unlink = util.promisify(fs.unlink);
 var async_test_util_1 = require("async-test-util");
-var child_process_promise_1 = require("child-process-promise");
+var spawn = require('child-process-promise').spawn;
 var paths_1 = require("./paths");
 var WARNING_REGEX = /^\:[0-9]*:[0-9]*\: Warning:/;
 function compile(source) {
@@ -58,7 +58,7 @@ function compile(source) {
                     stdout = [];
                     stderr = [];
                     rand = async_test_util_1.default.randomString(10);
-                    promise = child_process_promise_1.spawn('node', [
+                    promise = spawn('node', [
                         nodeScriptLocation,
                         base64Code,
                         rand
